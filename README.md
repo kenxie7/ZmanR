@@ -35,26 +35,30 @@ The provided example data are cell metadata from the single cell datasets
     # First we check whether the fluorescence signal is normal according to unstained cells when we fit a GLM model.
     # For now, the input is a cell metadata dataframe with log-transformed fluorescence data as columns for each cell, we will update for using Seurat/sce object as input. 
     # This will output the Q-Q, fitted vs residual, etc plots for evaluation and setting the standard deviation parameter for timebin assignment.
-    FACS_model_eval(well_fcs_mc_Blood)
+    FACS_model_eval(well_fcs_mc_Blood,
+    		    fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"))
     
 <div align="center">
 <img src="./pic/glm_fit.png" alt="glm_fit"/>
 </div>
 
     # Visualize the distribution of FACS fluorophore for unstained vs stained cells
-    plot_FACS_histogram(well_fcs_mc_Blood, fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"))
+    plot_FACS_histogram(well_fcs_mc_Blood, 
+    			fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"))
     
 <div align="center">
 <img src="./pic/fluo_hist.png" alt="fluo_hist"/>
 </div>
 
     # Assign the timebin to cells, where sd_threshold corresponds to the standard deviation threshold for each fluorophore:
-    well_fcs_mc_Blood = FACS_model(well_fcs_mc_Blood, sd_threshold = c(2.5, 1.5, 2.5, 2),fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"),
+    well_fcs_mc_Blood = FACS_model(well_fcs_mc_Blood, sd_threshold = c(2.5, 1.5, 2.5, 2),
+    				   fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"),
   				   timebins = c("12H", "24H", "36H", "48H"))
 
     # Evaluate the assigned timebin with stained and nonstained cells: plotting each timebin color with APC or other self-defined FACS channel.
     # The contour shows the actual classification by the GLM model
-    plot_FACS_eval(well_fcs_mc_Blood, fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"),
+    plot_FACS_eval(well_fcs_mc_Blood, 
+    		   fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"),
   		   timebins = c("12H", "24H", "36H", "48H"), y_axis = "log_APC.A")
     
 <div align="center">
