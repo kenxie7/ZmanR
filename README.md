@@ -55,7 +55,7 @@ The provided example data are cell metadata from the single cell datasets
     plot_FACS_eval(well_fcs_mc_Blood)
     
 <div align="center">
-<img src="./pic/stain_assignment.png" alt="stain_assignment"/>
+<img src="./pic/stain_asssignment.png" alt="stain_assignment"/>
 </div>
 
 ### Trajectory Analysis
