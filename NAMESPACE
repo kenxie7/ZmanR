@@ -2,6 +2,7 @@
 
 export(FACS_model)
 export(FACS_model_eval)
+export(plot_FACS_eval)
 export(plot_FACS_histogram)
 import(MASS)
 import(Matrix)

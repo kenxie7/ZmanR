@@ -6,7 +6,7 @@
 \usage{
 FACS_model_eval(
   well_fcs_mc,
-  fluorophores = c("log_BV711-A", "log_BUV737-A", "log_BB515-A", "log_PE-A")
+  fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A")
 )
 }
 \arguments{
@@ -17,7 +17,7 @@ Visualizations for assessing the normality of the fitted model
 }
 \description{
 This function evaluates models for different fluorophores including BV711, PE, BB515, and BUV737
-using Generalized Linear Models (GLM). It also performs data filtering based on certain conditions.
+using Generalized Linear Models (GLM).
 At the end, it returns the filtered dataframe and plots for the GLM fits.
 }
 \section{Timebin Assignment}{

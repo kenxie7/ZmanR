@@ -6,7 +6,7 @@
 \usage{
 FACS_model(
   well_fcs_mc,
-  fluorophores = c("log_BV711-A", "log_BUV737-A", "log_BB515-A", "log_PE-A"),
+  fluorophores = c("log_BV711.A", "log_BUV737.A", "log_BB515.A", "log_PE.A"),
   sd_threshold = c(3, 3, 3, 3),
   timebins = c("12H", "24H", "36H", "48H")
 )
