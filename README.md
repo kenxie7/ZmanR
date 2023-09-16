@@ -24,8 +24,10 @@ The concept is to label all immune cells in the peripheral blood at different ti
 - [Citation](#citation-&-references)
 - [Maintenance](#Maintenance)
 ### Installation
+	git clone https://github.com/kenxie7/ZmanR
+	R
 	require(devtools)
-	devtools::install_github("kenxie7/ZmanR")
+	devtools::install("ZmanR")
 ### Preprocessing
 We provide the example data for the peripheral and treatment data. The treatment data will be updated as example data soon. </br>
 The current provided example data are dataframe of cell metadata from the single cell dataset, we plan to update with Seurat/sce objects as inputs.
