@@ -1,13 +1,13 @@
 Package: ZmanR
-Title: R package for Time-resolved single-cell transcriptomics
-Version: 0.1.0
+Title: R package for Time-resolved single-cell transcriptomics Zman-seq
+Version: 1.0.0
 Authors@R: 
     person(given="Ken", family="Xie", email="kk.xie419@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-5775-3095"))
-Description: This package includes the statistical approaches and functions for time-informed trajectory analysis using time-resolved single-cell transcriptomics data.
+Description: R package for Time-resolved single-cell transcriptomics (Zman-seq) that includes the statistical approaches and functions for time-informed trajectory analysis using time-resolved single-cell transcriptomics data.
 License: MIT
 Encoding: UTF-8
 LazyData: true
 Depends: ggplot2, ggpubr, gridExtra, grid, MASS, Matrix, dplyr, stats
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.3
