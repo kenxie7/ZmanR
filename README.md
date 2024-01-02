@@ -116,7 +116,7 @@ We use metacells to first unbiasedly assign cells to metacells and annotated the
     ggarrange(traj_plot, ggplotify::as.ggplot(gene_plot), widths = c(8, 6))
     
 <div align="center">
-<img src="./pic/celltype_auc.png" alt="celltype_auc"/>
+<img src="./pic/traj_plots.png" alt="traj_plots"/>
 </div>
 
 ### Citation & References
