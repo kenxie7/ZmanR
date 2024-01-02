@@ -97,7 +97,8 @@ We use metacells to first unbiasedly assign cells to metacells and annotated the
 </div>
 
     # Then we continue to construct a smoothed AUC for downstream analysis, here we select the NK celltypes for first re-normalizing the expression data:
-    NK_mc_exprs = normalize_mc_exprs(new_id, mc_annotations=GBM_T_mc_annotations, mc_cdf$mc2d_auc_time, select_celltypes = c("chemotactic", "cytotoxic", "intermediate", 			"dysfunctional"))
+    NK_mc_exprs = normalize_mc_exprs(new_id, mc_annotations=GBM_T_mc_annotations, mc_cdf$mc2d_auc_time, 
+    		select_celltypes = c("chemotactic", "cytotoxic", "intermediate", "dysfunctional"))
     select_GO_mc <- get_GO_exp(NK_mc_exprs$select_exprs,gene_type = "gene_names", organism = "mouse", takelog=F)
     filtered_GO_mc <- filter_exp(select_GO_mc, dispersion_threshold=0.05, threads = 1)
 
@@ -117,7 +118,8 @@ We use metacells to first unbiasedly assign cells to metacells and annotated the
 
     # We can then visualize the trajectory and the smoothed gene expression along time with the following functions
     traj_plot <- plot_smoothed_trajectory(NK_smoothed_res, mc_cdf)
-    gene_plot <- plot_zman_genes_heatmap(NK_predicted_res, NK_smoothed_res, up_regulated_genes = c("Tigit","Xcl1","Pmepa1","Igflr1", "Gzmc"), down_regulated_genes = 				c("Ccl3","Prf1","Gzma", "Gzmb","Nkg7"), k = 2)
+    gene_plot <- plot_zman_genes_heatmap(NK_predicted_res, NK_smoothed_res, up_regulated_genes = c("Tigit","Xcl1","Pmepa1","Igflr1", "Gzmc"),
+    		down_regulated_genes = c("Ccl3","Prf1","Gzma", "Gzmb","Nkg7"), k = 2)
     options(repr.plot.width=14, repr.plot.height=5)
     ggarrange(traj_plot, ggplotify::as.ggplot(gene_plot), widths = c(8, 6))
 
