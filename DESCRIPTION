@@ -1,4 +1,4 @@
- Package: ZmanR
+Package: ZmanR
 Title: R package for Time-resolved single-cell transcriptomics Zman-seq
 Version: 1.0.0
 Authors@R: 
