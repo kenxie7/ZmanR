@@ -11,6 +11,6 @@ Description: R package for Time-resolved single-cell transcriptomics (Zman-seq) 
 License: MIT
 Encoding: UTF-8
 LazyData: true
-Depends: ggplot2, ggpubr, gridExtra, grid, MASS, Matrix, dplyr, stats, ComplexHeatmap
+Depends: ggplot2, ggpubr, gridExtra, grid, MASS, Matrix, dplyr, stats, ComplexHeatmap, ggnewscale, ggarchery
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
