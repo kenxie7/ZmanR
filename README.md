@@ -72,6 +72,52 @@ We use metacells to first unbiasedly assign cells to metacells and annotated the
 <img src="./pic/zman_schematic.jpg" alt="zman_schematic"/>
 </div>
 
+    library(ZmanR)
+    library(metacell)
+    # We provide example data to the naive GBM T/NK data which we showed in Figure 3 of the paper.
+    # GBM_T_mc_annotations contain two columns, "celltype" annotation for each metacell "mc_id" 
+    # well_fcs_GBM_T_time contains the "groundtruth_group" for the assigned time bin
+    scdb_init("ZmanR/mc_example")
+    new_id = "T_clean"
+    # Here select_mcs refer to selection of metacells which are relevant (i.e. we separate T cells from myeloids to provide separate trajectory analysis since the turnover time is different for the two lineages)
+    # The timepoints are the injection time points (12h, 24h, and 36h in this case )
+    mc_cdf <- compute_mc_cdf(new_id, well_fcs_GBM_T_time, select_mcs = 1:37, mc_annotations = GBM_T_mc_annotations, time_points = c("12H","24H","36H"), time_for_auc = c(0,12,24,36), 		Gate="CD45_high")
+    options(repr.plot.width=21, repr.plot.height=3.5)
+    # We first show that the raw calculated AUC indeed reflect the patterning in the different cell types and also about labeled time
+    ggplot(mc_cdf$mc_auc_time,aes(x=time, y=cums, group=mc,color=auc)) + geom_line() +  
+    scale_color_viridis_c() +facet_wrap(~factor(celltype, levels = c('Treg','CD4','CD8','chemotactic','cytotoxic','intermediate','dysfunctional')), ncol = 7)+
+        #scale_color_manual(values = topo.colors(31)) + 
+        theme(text = element_text(size = 20),legend.position = "none") + 
+        ylab('% of cells') + xlab("time (hours)")+geom_abline(intercept =  0.01412,     slope= 0.02810   ,
+                                                             color="red",linetype = "dashed", alpha = .5) 
+<div align="center">
+<img src="./pic/celltype_auc.png" alt="celltype_auc"/>
+</div>
+
+    # Then we continue to construct a smoothed AUC for downstream analysis, here we select the NK celltypes for first re-normalizing the expression data:
+    NK_mc_exprs = normalize_mc_exprs(new_id, mc_annotations=GBM_T_mc_annotations, mc_cdf$mc2d_auc_time, select_celltypes = c("chemotactic", "cytotoxic", "intermediate", 			"dysfunctional"))
+    select_GO_mc <- get_GO_exp(NK_mc_exprs$select_exprs,gene_type = "gene_names", organism = "mouse", takelog=F)
+    filtered_GO_mc <- filter_exp(select_GO_mc, dispersion_threshold=0.05, threads = 1)
+
+    # Here, we use the celltype clustering as reference for the trajectory construction, hence the ref_k should be equal to the number of distinct annotations in the data
+    NK_smoothed_res = smooth_zman_trajectory(filtered_GO_mc, NK_mc_exprs, ref_k = 4)
+
+    # Using spearman correlation, we can calculate both the correlation and pvalue for each gene for its correlation change along smoothed AUC Zman time.
+    nk_corr = calculate_corr_genes(new_id, NK_smoothed_res, "spearman")
+    signif(nk_corr$correlation[match(c("Tigit","Xcl1","Pmepa1","Igflr1", "Gzmc"), names(nk_corr$correlation))],3)
+    signif(nk_corr$pvalues[match(c("Tigit","Xcl1","Pmepa1","Igflr1", "Gzmc"), names(nk_corr$correlation))],3)
+    Tigit0.628Xcl10.802Pmepa10.741Igflr10.661Gzmc0.544
+    Tigit0.00101Xcl13.29e-06Pmepa12.24e-05Igflr10.00032Gzmc0.00499
+
+    # We can then visualize the trajectory and the smoothed gene expression along time with the following functions
+    traj_plot <- plot_smoothed_trajectory(NK_smoothed_res, mc_cdf)
+    gene_plot <- plot_zman_genes_heatmap(NK_predicted_res, NK_smoothed_res, up_regulated_genes = c("Tigit","Xcl1","Pmepa1","Igflr1", "Gzmc"), down_regulated_genes = 				c("Ccl3","Prf1","Gzma", "Gzmb","Nkg7"), k = 2)
+    options(repr.plot.width=14, repr.plot.height=5)
+    ggarrange(traj_plot, ggplotify::as.ggplot(gene_plot), widths = c(8, 6))
+    
+<div align="center">
+<img src="./pic/celltype_auc.png" alt="celltype_auc"/>
+</div>
 
 ### Citation & References
 
