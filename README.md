@@ -30,7 +30,6 @@ The concept is to label all immune cells in the peripheral blood at different ti
 	devtools::install("ZmanR")
 ### Preprocessing
 We provide the example data for the peripheral and treatment data. The treatment data will be updated as example data soon. </br>
-The current provided example data are dataframe of cell metadata from the single cell dataset, we plan to update with Seurat/sce objects as inputs.
 ### Time Assignment
 
     library(ZmanR)
@@ -68,11 +67,17 @@ The current provided example data are dataframe of cell metadata from the single
 </div>
 
 ### Trajectory Analysis
-Functions to be uploaded for time-informed trajectory inference, visualizations of time-correlated genes and transcription factors, and ligand-receptor analysis.
+We use metacells to first unbiasedly assign cells to metacells and annotated the metacells by gene expression. Then using cells with the time label, we can derive the AUC time of each metacell and construct the Zman trajectory along time as shown schematically below.
+<div align="center">
+<img src="./pic/zman_schematic.jpg" alt="zman_schematic"/>
+</div>
+
 
 ### Citation & References
 
-This work is currently under submission.
+If you liked or used our work, please cite:
+###### Kirschenbaum, D., Xie, K., Ingelfinger, F., Katzenelenbogen, Y., Abadie, K., Look, T., ... & Amit, I. (2023). Time-resolved single-cell transcriptomics defines immune trajectories in glioblastoma. Cell. https://doi.org/10.1016/j.cell.2023.11.032
+
 
 ### Maintenance
 
