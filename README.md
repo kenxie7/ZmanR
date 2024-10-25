@@ -117,6 +117,8 @@ We use metacells to first unbiasedly assign cells to metacells and annotated the
 <div align="center"></div>
 
     # We can then visualize the trajectory and the smoothed gene expression along time with the following functions
+    NK_predicted_res = predict_expression_along_time(new_id, NK_smoothed_res, out_len = 36, loess_degree=1, loess_span = .9)
+    
     traj_plot <- plot_smoothed_trajectory(NK_smoothed_res, mc_cdf)
     gene_plot <- plot_zman_genes_heatmap(NK_predicted_res, NK_smoothed_res, up_regulated_genes = c("Tigit","Xcl1","Pmepa1","Igflr1", "Gzmc"),
     		down_regulated_genes = c("Ccl3","Prf1","Gzma", "Gzmb","Nkg7"), k = 2)
