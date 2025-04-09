@@ -205,13 +205,24 @@ compute_mc_cdf <- function(new_id, time_per_cell,
     mutate(prop=Freq/sum(Freq))
   
   # Calc AUC
+  #x=time_for_auc
+  #mc_nk = unique(gd_nk$Var2)
+  #cm_nk_df = data.frame()
+  #for (i in mc_nk){
+  #  c1 = cumsum=c(0,unlist(cumsum(gd_nk[gd_nk$Var2==i,'prop'])))
+  #  tmp_df = data.frame(row.names=paste0(i,'_',x),time=x,mc=i,
+  #                      cums=c1,auc = sum(c1*(36-x)))
+  #  cm_nk_df= rbind(cm_nk_df,tmp_df)
+  #}
+
+  # Calc AUC update function fix
   x=time_for_auc
   mc_nk = unique(gd_nk$Var2)
   cm_nk_df = data.frame()
   for (i in mc_nk){
     c1 = cumsum=c(0,unlist(cumsum(gd_nk[gd_nk$Var2==i,'prop'])))
     tmp_df = data.frame(row.names=paste0(i,'_',x),time=x,mc=i,
-                        cums=c1,auc = sum(c1*(36-x)))
+                        cums=c1,auc = sum(c1*(tail(x, 1) - x)))
     cm_nk_df= rbind(cm_nk_df,tmp_df)
   }
   
